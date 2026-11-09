@@ -32,7 +32,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ---------- stage ---------- */
 .deck{position:fixed;inset:0;overflow:hidden}
-.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:960px 540px;}
 .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;padding:calc(var(--u)*92) calc(var(--u)*120) calc(var(--u)*110);
   opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility 0s linear .45s}
 .slide.active{opacity:1;visibility:visible;transition:opacity .45s var(--ease)}
@@ -65,9 +65,9 @@ em{font-style:italic}
 .t-deep .badge-analysis,.t-ink .badge-analysis,.t-terra .badge-analysis{background:var(--mustard);color:var(--ink)}
 
 /* compass motif */
-.mark{position:absolute;top:calc(var(--u)*78);right:calc(var(--u)*110);width:calc(var(--u)*70);height:calc(var(--u)*70);color:var(--copper)}
+.mark{position:absolute;top:calc(var(--u)*72);right:calc(var(--u)*104);width:calc(var(--u)*84);height:calc(var(--u)*84);color:var(--copper);filter:drop-shadow(0 calc(var(--u)*4) calc(var(--u)*8) rgba(0,0,0,.18))}
 .t-deep .mark,.t-ink .mark,.t-teal .mark,.t-terra .mark{color:var(--mustard)} .t-mustard .mark{color:var(--terra)}
-.mark svg{width:100%;height:100%;stroke-width:1.6}
+.mark svg{width:100%;height:100%}
 .slide.active .mark svg{animation:spin 1.6s var(--ease)}
 @keyframes spin{from{transform:rotate(-200deg)}to{transform:rotate(0)}}
 
@@ -339,6 +339,20 @@ html.stack .media{min-height:0;height:calc(var(--u)*560)!important;width:auto!im
 html.stack [data-b="0"]{height:auto!important;width:auto!important;padding:0!important;flex:none!important}
 html.stack .slide .row > div{flex:none!important}
 
+/* ---------- modo apresentação no celular ---------- */
+.playbtn{display:none;position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:45;align-items:center;gap:10px;background:var(--mustard);color:var(--ink);font:700 16px/1 var(--f-body);padding:15px 22px;border-radius:99px;box-shadow:0 8px 24px rgba(0,0,0,.35);white-space:nowrap}
+.playbtn svg{width:20px;height:20px}
+html.stack .playbtn{display:flex}
+html.stack body{padding-bottom:84px}
+@media (hover:none){ html:not(.present) .playbtn{display:flex} html:not(.stack) .playbtn{left:12px;bottom:12px;transform:none;padding:10px 14px;font-size:13px;opacity:.9} }
+html.present .playbtn{display:none!important}
+.exitbtn{display:none;position:fixed;top:10px;right:10px;z-index:46;width:40px;height:40px;border-radius:50%;background:rgba(10,26,32,.6);color:#fff;font:700 18px/40px var(--f-body);text-align:center}
+html.present .exitbtn{display:block}
+html.rot .exitbtn{transform:rotate(90deg)}
+html.rot .counter,html.rot .progress,html.rot .navbtn,html.rot .helpbtn{display:none}
+html.present,html.present body{background:#000;overflow:hidden;touch-action:none}
+@media (hover:none){ html:not(.stack) .playbtn span{display:none} html:not(.stack) .playbtn{padding:11px} }
+
 </style>
 </head>
 <body>
@@ -365,7 +379,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 2 ROTEIRO ================= -->
 <section class="slide t-mustard" data-label="Roteiro da apresentação">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">Roteiro</p>
   <h2 class="title">Roteiro da apresentação</h2>
   <ol class="agenda mt">
@@ -380,7 +394,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 3 FONTES E OBJETIVO ================= -->
 <section class="slide t-cream" data-label="Fontes e objetivo">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">01 · Fontes e objetivo</p>
   <h2 class="title">Dois textos, dois olhares</h2>
   <div class="g2 mt">
@@ -402,7 +416,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 4 ANTECEDENTES ================= -->
 <section class="slide t-cream" data-label="Antecedentes">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">02 · Evolução histórica · Antecedentes</p>
   <h2 class="title">Antecedentes: viajar para comerciar e explorar</h2>
   <div class="row mt" style="gap:calc(var(--u)*56)">
@@ -432,7 +446,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 5 ANTIGUIDADE ================= -->
 <section class="slide t-deep" data-label="Antiguidade: Grécia e Roma">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <div style="position:absolute;left:0;top:0;bottom:0;width:calc(var(--u)*560)" class="abs-fill" data-b="0" data-fx="fade">
     <figure class="media " data-kind="img" data-src="midias/05-antiguidade.jpg" tabindex="0" role="button" aria-label="Foto sugerida: Ruínas de Éfeso (Turquia) ou uma estrada romana antiga" data-pos="" style="width:100%;height:100%;border-radius:0"><div class="ph"><div class="ic"><svg aria-hidden="true" focusable="false" class="lucide lucide-camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" /> <circle cx="12" cy="13" r="3" /> </svg></div><b>Foto sugerida</b><span>Ruínas de Éfeso (Turquia) ou uma estrada romana antiga</span><code>midias/05-antiguidade.jpg</code></div><figcaption class="cap">Biblioteca de Celso, Éfeso (Turquia) · Foto: Barış Aktaş/Pexels</figcaption></figure>
   </div>
@@ -475,7 +489,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 7 SÉC XVI–XVIII ================= -->
 <section class="slide t-mustard" data-label="Séculos XVI a XVIII">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">02 · Evolução histórica · Séculos XVI–XVIII</p>
   <h2 class="title">Séculos XVI–XVIII: formação, saúde e natureza</h2>
   <div class="g4 mt">
@@ -521,7 +535,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 9 DIREITO AO LAZER ================= -->
 <section class="slide t-cream" data-label="Do trabalho às férias remuneradas">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">02 · Evolução histórica · Séculos XIX–XX</p>
   <h2 class="title">Do direito ao lazer às férias remuneradas</h2>
   <div class="row mt" style="gap:calc(var(--u)*60)">
@@ -577,7 +591,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 11 OITO MOTIVAÇÕES ================= -->
 <section class="slide t-terra" data-label="Oito motivações">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">03 · Motivações</p>
   <h2 class="title">Por que viajamos? <span style="color:var(--mustard)">Viajar é…</span></h2>
   <div class="g4" style="margin-top:calc(var(--u)*48);gap:calc(var(--u)*26)">
@@ -597,7 +611,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 12 FUGA ================= -->
 <section class="slide t-cream" data-label="Fuga do cotidiano e compensação">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">03 · Motivações · Fuga e compensação</p>
   <h2 class="title">Fuga do cotidiano e compensação</h2>
   <div class="row mt" style="gap:calc(var(--u)*40);align-items:stretch">
@@ -614,7 +628,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 13 PEREGRINAÇÃO ================= -->
 <section class="slide t-deep" data-label="Peregrinação × turismo religioso">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">03 · Motivações · Religião</p>
   <h2 class="title">Peregrinação × turismo religioso: um debate</h2>
   <div class="vs mt">
@@ -655,7 +669,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 15 DOSSIÊ ================= -->
 <section class="slide t-ink" data-label="O olhar do Dossiê">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">04 · O olhar do Dossiê</p>
   <h2 class="title">Destinos como construções históricas</h2>
   <div class="chips mt-s" data-b="1"><span class="chip m">ANPUH-RJ · set. 2020 · 1ª vez online</span><span class="chip s">Simpósio Temático 7: História, Turismo e Lazer</span><span class="chip w">Brasil · Uruguai · Portugal · Espanha</span></div>
@@ -676,7 +690,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 16 MAPA DE CIDADES ================= -->
 <section class="slide t-cream" data-label="Cidades na pesquisa histórica do turismo">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">04 · O olhar do Dossiê · Cidades</p>
   <h2 class="title sm">Cidades na pesquisa histórica do turismo</h2>
   <table class="ctable" style="margin-top:calc(var(--u)*22)">
@@ -699,7 +713,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 17 RIO EM FOCO ================= -->
 <section class="slide t-mustard" data-label="O Rio de Janeiro em foco">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <div class="row" style="gap:calc(var(--u)*52);height:100%">
     <div style="flex:.85;padding:0 0 calc(var(--u)*70)" data-b="0" data-fx="left"><figure class="media framed" data-kind="img" data-src="midias/17-rio-antigo.jpg" tabindex="0" role="button" aria-label="Foto sugerida: Foto antiga do Rio de Janeiro: Avenida Central (1905), a Urca ou o Pão de Açúcar" data-pos="" style="height:100%"><div class="ph"><div class="ic"><svg aria-hidden="true" focusable="false" class="lucide lucide-camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" /> <circle cx="12" cy="13" r="3" /> </svg></div><b>Foto sugerida</b><span>Foto antiga do Rio de Janeiro: Avenida Central (1905), a Urca ou o Pão de Açúcar</span><code>midias/17-rio-antigo.jpg</code></div><figcaption class="cap">Rio de Janeiro, início do séc. XX · Imagem: licença Creative Commons</figcaption></figure></div>
     <div style="flex:1.25">
@@ -719,7 +733,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 18 DISCUSSÃO ================= -->
 <section class="slide t-cream" data-label="Discussão">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">05 · Discussão <span class="badge-analysis" style="margin-left:calc(var(--u)*14);vertical-align:middle">Análise do grupo</span></p>
   <h2 class="title sm">Evolução linear × construção histórica</h2>
   <div class="disc" style="margin-top:calc(var(--u)*28)">
@@ -737,7 +751,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 19 CONSIDERAÇÕES ================= -->
 <section class="slide t-deep" data-label="Considerações finais">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">05 · Considerações finais</p>
   <h2 class="title">Considerações finais</h2>
   <ol class="concl mt-s">
@@ -752,7 +766,7 @@ html.stack .slide .row > div{flex:none!important}
 
 <!-- ================= 20 REFERÊNCIAS ================= -->
 <section class="slide t-cream" data-label="Referências">
-  <div class="mark"><svg aria-hidden="true" focusable="false" class="lucide lucide-compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /> </svg></div>
+  <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="compass-color"><circle cx="32" cy="32" r="31" fill="#CDD2DE"/><circle cx="32" cy="32" r="25.5" fill="#2A86E8"/><path d="M14.5 26.5 A19 19 0 0 1 22.5 16.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><path d="M49.5 37.5 A19 19 0 0 1 41.5 47.5" fill="none" stroke="#5AA7F2" stroke-width="2.6" stroke-linecap="round"/><g fill="#24496E" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="9" text-anchor="middle"><text x="32" y="16.5">N</text><text x="32" y="55">S</text><text x="13.6" y="35.4">W</text><text x="50.6" y="35.4">E</text></g><path d="M46 18 L36.6 36.6 L27.4 27.4 Z" fill="#FFFFFF"/><path d="M18 46 L27.4 27.4 L36.6 36.6 Z" fill="#E0283A"/><circle cx="32" cy="32" r="3.4" fill="#CDD2DE"/></svg></div>
   <p class="kicker">Referências</p>
   <h2 class="title">Referências</h2>
   <ul class="refs mt-l">
@@ -781,6 +795,8 @@ html.stack .slide .row > div{flex:none!important}
 <div class="counter" id="counter" aria-hidden="true">1 / 1</div>
 <button class="navbtn prev" id="btnPrev" aria-label="Slide anterior"><svg aria-hidden="true" focusable="false" class="lucide lucide-chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m15 18-6-6 6-6" /> </svg></button>
 <button class="navbtn next" id="btnNext" aria-label="Próximo slide"><svg aria-hidden="true" focusable="false" class="lucide lucide-chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m9 18 6-6-6-6" /> </svg></button>
+<button class="playbtn" id="btnPlay" aria-label="Apresentar em tela cheia"><svg aria-hidden="true" focusable="false" class="lucide lucide-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /> </svg><span>Apresentar em tela cheia</span></button>
+<button class="exitbtn" id="btnExit" aria-label="Sair do modo apresentação">✕</button>
 <button class="helpbtn" id="btnHelp" aria-label="Atalhos de teclado">? Atalhos</button>
 <section class="notes-panel" id="notes" aria-label="Notas do orador" tabindex="-1"><h2>Notas</h2><p class="txt"></p><span class="ids"></span></section>
 <nav class="overview" id="overview" aria-label="Visão geral dos slides"></nav>
@@ -848,12 +864,37 @@ html.stack .slide .row > div{flex:none!important}
   function next(){ if(step<maxStep(idx)){step++;render()} else if(idx<N-1) go(idx+1,0); }
   function prev(){ if(step>0){step--;render()} else if(idx>0) go(idx-1,'end'); }
 
+  var present=false, fsOn=false;
   function fit(){
-    if(root.classList.contains('stack')) return;
-    var w=window.innerWidth,h=window.innerHeight,sc=Math.min(w/1920,h/1080);
-    stage.style.transform='translate('+(-960*sc)+'px,'+(-540*sc)+'px) scale('+sc+')';
+    if(root.classList.contains('stack')) { root.classList.remove('rot'); return; }
+    var w=window.innerWidth,h=window.innerHeight, rot=present&&h>w;
+    root.classList.toggle('rot',rot);
+    var sc=rot?Math.min(h/1920,w/1080):Math.min(w/1920,h/1080);
+    stage.style.transform='translate(-960px,-540px) scale('+sc+')'+(rot?' rotate(90deg)':'');
   }
-  function applyStack(){ root.classList.toggle('stack',mqStack.matches); if(!mqStack.matches) fit(); }
+  function applyStack(){ root.classList.toggle('stack',mqStack.matches&&!present); fit(); }
+  function visibleSlide(){
+    for(var i=0;i<N;i++){ var r=slides[i].getBoundingClientRect(); if(r.bottom>window.innerHeight*0.45) return i; } return idx;
+  }
+  function enterPresent(){
+    var start=root.classList.contains('stack')?visibleSlide():idx;
+    present=true; root.classList.add('present');
+    var el=document.documentElement, req=el.requestFullscreen||el.webkitRequestFullscreen;
+    if(req){ try{ var p=req.call(el); var after=function(){ fsOn=true; if(screen.orientation&&screen.orientation.lock){ screen.orientation.lock('landscape').catch(function(){}); } setTimeout(fit,300); };
+      if(p&&p.then) p.then(after).catch(function(){}); else after(); }catch(e){} }
+    window.scrollTo(0,0); applyStack(); go(start,0);
+  }
+  function exitPresent(){
+    present=false; root.classList.remove('present','rot');
+    if(screen.orientation&&screen.orientation.unlock){ try{screen.orientation.unlock()}catch(e){} }
+    var fe=document.fullscreenElement||document.webkitFullscreenElement;
+    if(fe){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+    fsOn=false; applyStack();
+    if(root.classList.contains('stack')) slides[idx].scrollIntoView();
+  }
+  function onFsChange(){ var fe=document.fullscreenElement||document.webkitFullscreenElement; if(!fe&&fsOn&&present){ fsOn=false; exitPresent(); } else fit(); }
+  document.addEventListener('fullscreenchange',onFsChange); document.addEventListener('webkitfullscreenchange',onFsChange);
+  window.addEventListener('orientationchange',function(){setTimeout(fit,250)});
   if(mqStack.addEventListener) mqStack.addEventListener('change',applyStack); else if(mqStack.addListener) mqStack.addListener(applyStack);
   window.addEventListener('resize',fit);
 
@@ -862,6 +903,7 @@ html.stack .slide .row > div{flex:none!important}
     if(e.target.closest && (e.target.closest('.notes-panel')||e.target.matches('input,textarea'))) return;
     if(root.classList.contains('stack')) return;
     var k=e.key;
+    if(k==='Escape'&&present){exitPresent();return}
     if(ov.classList.contains('open')||help.classList.contains('open')){ if(k==='Escape'||k==='g'||k==='G'||k==='?'){closeAll();e.preventDefault()} return; }
     if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='Enter'||k==='ArrowDown'){next();e.preventDefault()}
     else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'||k==='ArrowUp'){prev();e.preventDefault()}
@@ -872,11 +914,13 @@ html.stack .slide .row > div{flex:none!important}
     else if(k==='?'||k==='h'||k==='H'){help.classList.add('open')}
   });
   document.getElementById('btnPrev').onclick=prev; document.getElementById('btnNext').onclick=next;
+  document.getElementById('btnPlay').onclick=function(e){e.stopPropagation();enterPresent()};
+  document.getElementById('btnExit').onclick=function(e){e.stopPropagation();exitPresent()};
   document.getElementById('btnHelp').onclick=function(){help.classList.add('open')};
   // swipe
   var sx=null,sy=null;
   document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
-  document.addEventListener('touchend',function(e){ if(sx===null||root.classList.contains('stack'))return; var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+  document.addEventListener('touchend',function(e){ if(sx===null||root.classList.contains('stack'))return; var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy; if(root.classList.contains('rot')){ var t=dx; dx=dy; dy=-t; }
     if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){ dx<0?next():prev(); } else if(Math.abs(dx)<10&&Math.abs(dy)<10&&!e.target.closest('button,.media')){ next(); } sx=null; },{passive:true});
 
   // overview
